@@ -1,18 +1,14 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import bookRoutes from './app/routes/book.route';
-import errorHandler from './app/middlewares/errorHandler';
+import express, { Application, Request, Response } from "express";
+import { booksRoutes } from "./app/controllers/book.controller";
 
-const app = express();
+const app: Application = express();
 app.use(express.json());
 
-// Connect MongoDB here...
-
-app.use('/api', bookRoutes);
-
-app.use(errorHandler);
+app.use("/api/books", booksRoutes);
 
 
-app.listen(5000, () => {
-  console.log('Server running on port 5000');
+app.get("/", (req: Request, res: Response) => {
+  res.send("Welcome to Node app!");
 });
+
+export default app;

@@ -1,13 +1,15 @@
-import { Schema, model, Document } from "mongoose";
+import { Document } from 'mongoose';
 
-export interface IBook extends Document {
+export type Genre = 'FICTION' | 'NON_FICTION' | 'SCIENCE' | 'HISTORY' | 'BIOGRAPHY' | 'FANTASY';
+
+export interface IBook {
   title: string;
   author: string;
-  genre: 'FICTION' | 'NON_FICTION' | 'SCIENCE' | 'HISTORY' | 'BIOGRAPHY' | 'FANTASY';
+  genre: Genre;
   isbn: string;
-  description?: string;
+  description: string;
   copies: number;
   available: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
-const Book = model<IBook>('Book', bookSchema);
-export default Book;
