@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { BookModel, IBook } from '../interfaces/book.interface';
-import { borrow } from "./borrow.model";
 import validator from "validator";
+import { Borrow } from './borrow.model';
 
 const bookSchema = new Schema<IBook, BookModel>(
   {
@@ -26,12 +26,14 @@ const bookSchema = new Schema<IBook, BookModel>(
       required: true, 
       unique: true, 
       validate: {
-        validator: (value: string) => validator.isISBN(value),
-        message: `ISBN format is incorrect`,
-      }, 
+        validator: function (value: string) {
+          return /^\d{13}$/.test(value);
+        },
+      }
     },
     description: { 
       type: String, 
+      default: "",
       trim: true, 
     },
     copies: { 
@@ -45,7 +47,8 @@ const bookSchema = new Schema<IBook, BookModel>(
     },
     available: { 
       type: Boolean, 
-      required: true, 
+      required: true,
+      default: true
     },
   },
   { timestamps: true, 
@@ -79,7 +82,7 @@ bookSchema.statics.updateCopies = async function (
 
 bookSchema.post("findOneAndDelete", async function (doc) {
   if (doc) {
-    await borrow.deleteMany({ book: doc._id });
+    await Borrow.deleteMany({ book: doc._id });
   }
 });
 

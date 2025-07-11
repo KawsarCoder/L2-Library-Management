@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { borrow } from "../models/borrow.model";
+import { Borrow } from "../models/borrow.model";
 
 export const borrowRoutes = Router();
 
@@ -8,7 +8,7 @@ borrowRoutes.post("/", async (req: Request, res: Response, next) => {
   try {
     const body = req.body;
 
-    const data = await borrow.create(body);
+    const data = await Borrow.create(body);
     res.status(201).json({
       success: true,
       message: "Successfully borrowed the book",
@@ -21,7 +21,7 @@ borrowRoutes.post("/", async (req: Request, res: Response, next) => {
 
 borrowRoutes.get("/", async (req: Request, res: Response, next) => {
   try {
-    const data = await borrow.aggregate([
+    const data = await Borrow.aggregate([
       {
         $group: {
           _id: "$book",
@@ -54,7 +54,7 @@ borrowRoutes.get("/", async (req: Request, res: Response, next) => {
 
     res.status(201).json({
       success: true,
-      message: "Summary of borrowed books fetched successfully",
+      message: "Borrowed books summary retrieved successfully",
       data: data,
     });
   } catch (error) {

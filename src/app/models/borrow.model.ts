@@ -1,9 +1,10 @@
 import { model, Schema, Types } from "mongoose";
 import { IBorrow } from "../interfaces/borrow.interface";
 import { Book } from "./book.model";
+// import { Book } from "./book.model";
 
 
-const schemaBorrow = new Schema<IBorrow>(
+const borrowSchema = new Schema<IBorrow>(
   {
     book: {
       type: Schema.Types.ObjectId,
@@ -13,10 +14,10 @@ const schemaBorrow = new Schema<IBorrow>(
     quantity: {
       type: Number,
       required: true,
-      min: [1, "Quantity must be Positive integer"],
+      min: [1, "Enter a valid positive integer for quantity"],
       validate: {
         validator: Number.isInteger,
-        message: "Quantity must be Positive integer",
+        message: "Enter a valid positive integer for quantity",
       },
     },
     dueDate: {
@@ -24,21 +25,27 @@ const schemaBorrow = new Schema<IBorrow>(
       required: true,
     },
   },
-  {
-    timestamps: true,
-    versionKey: false,
+  { timestamps: true, 
+    toJSON: {
+      versionKey: false, 
+      transform(doc, ret) {
+        const {_id, ...rest} = ret;
+        return { _id, ...rest };
+      }
+    } 
   }
 );
 
-schemaBorrow.pre("save", async function (next) {
-  try {
-    const borrow = this as IBorrow;
+borrowSchema.pre("save", async function (next) {
+    try {
+      const borrow = this as IBorrow;
+  
+      await Book.updateCopies(borrow.book.toString(), borrow.quantity);
+      next();
+    } catch (error) {
+      next(error as Error);
+    }
+  });
 
-    await Book.updateCopies(borrow.book.toString(), borrow.quantity);
-    next();
-  } catch (error) {
-    next(error as Error);
-  }
-});
 
-export const borrow = model<IBorrow>("borrows", schemaBorrow);
+export const Borrow = model<IBorrow>("Borrow", borrowSchema);
