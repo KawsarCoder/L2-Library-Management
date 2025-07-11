@@ -1,24 +1,43 @@
-import { ErrorRequestHandler } from 'express';
+import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  let statusCode = 500;
-  let message = 'Something went wrong';
-  let errorDetails: any = err;
+export const errorhandler: ErrorRequestHandler = (
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (err.name === "ValidationError") {
+    const simplifiedError: any = {
+      name: err.name,
+      errors: {},
+    };
+    for (const key in err.errors) {
+      const error = err.errors[key];
+      simplifiedError.errors[key] = {
+        message: error.message,
+        name: error.name,
+        properties: {
+          message: error.message,
+          type: error.properties?.type,
+          min: error.properties?.min,
+        },
+        kind: error.kind,
+        path: error.path,
+        value: error.value,
+      };
+    }
 
-  // Handle Mongoose Validation Errors
-  if (err.name === 'ValidationError') {
-    statusCode = 400;
-    message = 'Validation failed';
-    errorDetails = err;
+    res.status(400).json({
+      message: "Validation error occurred",
+      success: false,
+      error: simplifiedError,
+    });
+    return;
   }
-
-  // You can handle other custom error types here later...
-
-  res.status(statusCode).json({
+  res.status(err.statusCode || 500).json({
+    message: err.message || "Unexpected error on the server",
     success: false,
-    message,
-    error: errorDetails,
+    error: err,
   });
+  return;
 };
-
-export default errorHandler;
