@@ -12,7 +12,7 @@ A RESTful API project built with **Express.js**, **TypeScript**, and **MongoDB (
 - 📥 **Borrow Book** – Record a borrowed book, update availability and reduce quantity.
 - 📊 **Borrow Summary** – Aggregate borrow records by book with quantity, title, and ISBN.
 
----
+
 
 ## ✅ API Endpoints
 
@@ -26,7 +26,7 @@ A RESTful API project built with **Express.js**, **TypeScript**, and **MongoDB (
 | 6   | POST   | `/api/borrow`      | Borrow a book                |
 | 7   | GET    | `/api/borrow`      | Get borrow summary (report)  |
 
----
+
 
 ## 📁 Project Folder Structure
 
@@ -71,7 +71,7 @@ PORT=5000
 DATABASE_URL=your_mongodb_connection_string
 ```
 
-Replace your_mongodb_connection_string with your actual MongoDB URI.
+> Replace your_mongodb_connection_string with your actual MongoDB URI.
 
 ### 4️⃣ Run Development Server
 
@@ -92,11 +92,9 @@ http://localhost:5000/
 
 ## 📦 Repository & Deployment
 ### 🔗 GitHub Repositories
-Frontend: Your Frontend Repo
 
-Backend: Your Backend Repo
+Backend:
 
 ### 🚀 Live URLs
-Frontend: Live Frontend
 
-Backend API: Live Backend
+Backend API: 

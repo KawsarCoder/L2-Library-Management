@@ -5,13 +5,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build" : "tsc"
-
+    "build": "tsc",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint:fix": "npx eslint --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "A RESTful API project built with **Express.js**, **TypeScript**, and **MongoDB (Mongoose)** to manage a library's book inventory and borrowing system.",
   "dependencies": {
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
@@ -21,13 +22,30 @@
     "zod": "^4.0.5"
   },
   "devDependencies": {
+    "@eslint/js": "^9.31.0",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.3",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^24.0.10",
     "@types/validator": "^13.15.2",
+    "@typescript-eslint/eslint-plugin": "^8.36.0",
+    "@typescript-eslint/parser": "^8.36.0",
+    "eslint": "^9.31.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.5.1",
+    "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KawsarCoder/L2-Library-Management.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KawsarCoder/L2-Library-Management/issues"
+  },
+  "homepage": "https://github.com/KawsarCoder/L2-Library-Management#readme"
 }
