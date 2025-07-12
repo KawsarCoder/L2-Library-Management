@@ -39,7 +39,6 @@ const borrowSchema = new Schema<IBorrow>(
 borrowSchema.pre("save", async function (next) {
     try {
       const borrow = this as IBorrow;
-  
       await Book.updateCopies(borrow.book.toString(), borrow.quantity);
       next();
     } catch (error) {

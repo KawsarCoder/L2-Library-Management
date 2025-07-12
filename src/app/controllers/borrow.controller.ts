@@ -44,7 +44,7 @@ borrowRoutes.get("/", async (req: Request, res: Response, next) => {
           _id: 0,
           totalQuantity: 1,
           book: {
-            bookId: "$_id",
+           
             title: "$bookDetails.title",
             isbn: "$bookDetails.isbn",
           },

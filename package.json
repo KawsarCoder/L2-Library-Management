@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "start": "node ./dist/server.js",
+    "start:prod": "nodemon ./dist/server.js",
+    "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "lint:fix": "npx eslint --fix"
@@ -14,6 +16,7 @@
   "license": "ISC",
   "description": "A RESTful API project built with **Express.js**, **TypeScript**, and **MongoDB (Mongoose)** to manage a library's book inventory and borrowing system.",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "mongodb": "^6.17.0",
@@ -23,6 +26,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.31.0",
+    "@types/cors": "^2.8.19",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.3",
     "@types/mongoose": "^5.11.96",
