@@ -93,8 +93,8 @@ http://localhost:5000/
 ## 📦 Repository & Deployment
 ### 🔗 GitHub Repositories
 
-Backend:
+Backend: https://github.com/KawsarCoder/L2-Library-Management
 
 ### 🚀 Live URLs
 
-Backend API: 
+Backend API: https://library-management-server-taupe.vercel.app/api/books
